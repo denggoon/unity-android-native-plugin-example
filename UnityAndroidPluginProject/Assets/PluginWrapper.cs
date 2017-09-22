@@ -9,9 +9,10 @@ public class PluginWrapper : MonoBehaviour
     void Start()
     {
         TextMesh textMesh = GetComponent<TextMesh>();
-        var plugin = new AndroidJavaClass("com.jiwan.unityplugin.PluginClass");
-
-        textMesh.text = plugin.CallStatic<string>("GetTextFromPlugin", 7);
+        using (AndroidJavaClass plugin = new AndroidJavaClass("com.jiwan.unityplugin.PluginClass"))
+        {
+            textMesh.text = plugin.CallStatic<string>("GetTextFromPlugin", 7);
+        }
     }
 
     private void Update()
